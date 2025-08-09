@@ -8,6 +8,7 @@ import com.example.BookMyNest.enums.BookingStatus;
 import com.example.BookMyNest.enums.NotificationType;
 import com.example.BookMyNest.enums.PaymentStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,27 +29,32 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Booking {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	@ManyToOne
 	@JoinColumn(name = "room_id")
 	private Room room;
-	
+
 	@Enumerated(EnumType.STRING)
-	private PaymentStatus payementStatus;
-	
+	private PaymentStatus paymentStatus;
+
 	private LocalDate checkInDate;
 	private LocalDate checkOutDate;
-	
+
 	private BigDecimal totalPrice;
 	private String bookingReference;
 	private LocalDateTime createdAt;
-	
+
 	@Enumerated(EnumType.STRING)
-	private BookingStatus bookinStatus;
+	private BookingStatus bookingStatus;
 
 }

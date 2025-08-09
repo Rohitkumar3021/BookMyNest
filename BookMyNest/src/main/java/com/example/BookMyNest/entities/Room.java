@@ -1,5 +1,7 @@
 package com.example.BookMyNest.entities;
 
+import java.math.BigDecimal;
+
 import com.example.BookMyNest.enums.RoomType;
 
 import jakarta.persistence.Column;
@@ -25,25 +27,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Min(value = 1, message = "Room Number must be at least 1")
-	@Column
+	@Column(unique = true)
 	private Integer roomNumber;
-	
+
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Room type is required")
 	private RoomType type;
-	
+
 	@DecimalMin(value = "0.1", message = "Price per night is required")
+	private BigDecimal pricePerNight;
+
+	@Min(value = 1, message = "capacity must be at least 1")
 	private Integer capacity;
-	
-	private String description;
-	
+
+	private String description; 
+
 	private String imageUrl; 
-	
 
 }
