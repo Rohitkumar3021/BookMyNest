@@ -31,10 +31,13 @@ public class RoomServiceImpl implements RoomService {
 	private final RoomRepository roomRepository;
     private final ModelMapper modelMapper;
 
-//    private static final String IMAGE_DIRECTORY = System.getProperty("user.dir") + "/product-image/";
+   // private static final String IMAGE_DIRECTORY = System.getProperty("user.dir") + "/product-image/";
 
     //image directory for our frontens appp
-    private static final String IMAGE_DIRECTORY_FRONTEND = "/Users/dennismac/phegonDev/hotel-react-frontend/public/rooms/";
+    //private static final String IMAGE_DIRECTORY_FRONTEND = "E:/HotelReservation/Hotel_Reservation/bookmynest-react-frontend/public/rooms/";
+    private static final String IMAGE_DIRECTORY_FRONTEND = "E:/HotelReservation/Hotel_Reservation/bookmynest-react-frontend/public/rooms/";
+
+
 
 
 
@@ -44,6 +47,7 @@ public class RoomServiceImpl implements RoomService {
         Room roomToSave = modelMapper.map(roomDTO, Room.class);
 
         if (imageFile != null){
+        	//String imagePath = saveImage(imageFile);
             String imagePath = saveImageToFrontend(imageFile);
             roomToSave.setImageUrl(imagePath);
         }
@@ -62,6 +66,7 @@ public class RoomServiceImpl implements RoomService {
                 .orElseThrow(()-> new NotFoundException("Room not found"));
 
         if (imageFile != null && !imageFile.isEmpty()){
+        	//String imagePath = saveImage(imageFile);
             String imagePath = saveImageToFrontend(imageFile);
             existingRoom.setImageUrl(imagePath);
         }
